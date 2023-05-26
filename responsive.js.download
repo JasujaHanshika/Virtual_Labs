@@ -1,0 +1,41 @@
+// Responsive Design Positioning For Toggled Screen
+//17/01/2017
+//@author-RESPONSIVE
+
+function checkWidth(){
+	var width=$("#sidebar-wrapper").width();
+	var parentWidth=$("#sidebar-wrapper").offsetParent().width();
+	var percent=100*width/parentWidth;
+	var winWidth=$(window).width();	
+	if(percent=="0"|| winWidth<768)
+		{
+			$("#lensPlusTube").css({ "position": "absolute","top": "6%","left": "37%","width": "12%"})
+			$("#microbody").css({ "position": "absolute","top": "30%","left": "28%","width": "45%"})
+			$("#bgCanvas").css({ "background-position-y": "65%"})
+			$("#lensePower10").css({"left": "37%"})
+			$("#lensePower40").css({ "left": "46%"})			
+			$("#fineAdjustment").css({ "top": "45%"})			
+			$("#lensePower100").css({"left":"43%"});
+			$("#clip").css({"left":"39%","top": "61%"});			
+			$("#mirror").css({"left":"42%","top": "76%"});			
+			$("#stagehtadjstmnt").css({"left":"51%","top": "73%"});			
+			$("#eyepieceLens").css({"width":"4%"});
+			$("#coarseAdjustment").css({"width":"5%","left": "52%"});
+
+			$("#frwdBckwrd ").css({"left":"47%","top": "30%","position":"absolute","width":"8%","height":"12%"});	
+			
+		}
+	else	
+		{
+			$("#lensPlusTube").css({ "position": "absolute","top": "6%","left": "37.5	%","width": "15%"})
+			$("#microbody").css({ "position": "absolute","top": "30%","left": "28%","width": "52%"})
+			$("#page-content-wrapper").css({ "background-position-y": "40%"})
+			
+			$("#frwdBckwrd ").css({"left":"51%","top": "30%","position":"absolute","width":"8%","height":"12%"});	
+			
+			
+		}
+	
+
+
+}

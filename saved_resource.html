@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<!-- saved from url=(0234)http://amrita.olabs.edu.in/olab/html5/?sub=BIO&cat=CLB&exp=Prepare_temporary_mounts_of_onionpeel_and_human_cheekcells&tempId=olab_ot_rt&linktoken=2f86ad4a4acee6130ae92631f2d31f3d&elink_lan=en-IN&elink_title=Onion%20and%20Cheek%20Cells -->
+<html class=" js canvas geolocation video audio localstorage sessionstorage texttrackapi track"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Enable IE9 Standards mode -->
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title></title>
+<link rel="stylesheet" type="text/css" media="all" href="./bootstrap.min.css">
+<link rel="stylesheet" type="text/css" media="all" href="./custom_resp.css">
+<link rel="stylesheet" type="text/css" media="all" href="./font.css">
+<!--<link rel="stylesheet" type="text/css" media="all" href="template/olab_ot_rt/css/reset.css" />-->
+<!--<link rel="stylesheet" type="text/css" media="all" href="template/olab_ot_rt/css/grid.css" />-->
+<link href="./mainstyle.css" rel="stylesheet" type="text/css">
+<link href="./newStyle.css" rel="stylesheet" type="text/css">
+
+ <script src="./jquery_v1.12.4.js.download"></script>
+<!--<script src="js/jquery/jquery.js"></script>-->
+
+
+    <!-- jQuery UI 1.12.1 -->
+  <script src="./jqueryUI_v1.12.1.js.download"></script>
+
+
+<!--[if IE]><script src="js/excanvas.js"></script><![endif]-->
+<link href="./simstyle.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="./blur.js.download"></script>
+
+
+<script language="javascript" type="text/javascript" src="./jquery.qtip-1.0.0.min.js.download"></script>
+<script language="javascript" type="text/javascript" src="./jquery.i18n.js.download"></script>
+
+<script language="javascript">
+var language_script= 'en-IN';
+var language=language_script.toString();
+	language=language.slice(0, 2);
+	var gt=$;
+	gt.gettext.setLocale(language);
+</script>
+
+<script type="text/javascript" src="./language.json"></script><!--[if gte IE 9]>
+  <style type="text/css">
+    .gradient {
+       filter: none;
+    }
+  </style>
+<![endif]-->
+<script src="./modernizr-custom.js.download"></script>
+<script>
+if( !Modernizr.inputtypes.range ){
+		document.write("<script type=\"text/javascript\" src=\"js/js-webshim/1.9.7/minified/polyfiller.js\"></"+"script>");
+        $(document).ready(function(){
+			$.webshims.setOptions("waitReady", false);
+     		$.webshims.polyfill('forms-ext');
+		});
+    };
+
+
+</script>
+<script>
+	$(document).ready(function(){
+
+		 //toggle sidebar on clicking the hamburger
+		  $("#menu-toggle").click(function(e) {
+			  e.preventDefault();
+			  $("#wrapper").toggleClass("toggled");
+			  checkWidth();
+		  });
+
+		//show sidebar on clicking the hamburger and hide on clicking outside
+
+
+		// $('*:not(.menu-toggle)').on('click', function () {
+			// $('#wrapper').removeClass('toggled');
+		// });
+
+		checkWidth();
+
+		//apply transformation on resizing the window viewport
+
+
+		var windowWidth = $(window).width();
+
+		if(windowWidth != $(window).width()){
+			checkWidth();
+		}
+
+		$(window).resize(function() {
+
+			checkWidth();
+			// location.reload();
+			// return;
+
+		 });
+
+
+	});
+</script>
+
+</head>
+<body>
+
+
+<div class="container">
+		<div id="wrapper" class="toggled">
+			<header class="header" id="silumatorTemp">
+
+				<nav class="navbar navbar-static-top" role="navigation">
+					<div class="title" style="display: inline-block;">
+						<h1 id="expName" style="size: 11px; color:#FFE67C">t</h1>
+
+						<a href="javascript:" class="navbar-btn sidebar-toggle hidden-md hidden-lg hidden-sm" id="menu-toggle" role="button">
+						<!--<a href="javascript:" class="navbar-btn sidebar-toggle" id="menu-toggle" role="button">-->
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</a>
+					</div>
+				</nav>
+
+				<div class="navbar-right">
+					<ul id="olabmenuBar" class="nav navbar-nav">
+						<li>
+							<a id="olabFullscrBtn" onclick="parent.simFullScreenOlab()" style="cursor:pointer;">FULLSCREEN</a>
+						</li>
+						<li>
+							<a href="http://amrita.olabs.edu.in/olab/html5/?sub=BIO&amp;cat=CLB&amp;exp=Prepare_temporary_mounts_of_onionpeel_and_human_cheekcells&amp;tempId=olab_ot_rt&amp;linktoken=2f86ad4a4acee6130ae92631f2d31f3d&amp;elink_lan=en-IN&amp;elink_title=Onion%20and%20Cheek%20Cells#">EXIT</a>
+						</li>
+					</ul>
+				</div>
+
+			</header><!-- /header -->
+ <div id="sidebar-wrapper" class="controlHolder" style="overflow-y:scroll">
+	<div class="nano has-scrollbar">
+		<form name="lister" method="post">
+<ul>
+	<li>
+        <div class="varBox">
+            <p class="varTitle"><span class="text">Select view:</span>
+            <select class="form-control" name="thelist0" id="thelist0" onchange="selectView()">
+                <option value="0">Microscope view</option><option value="1">Binocular view</option></select>
+            </p>
+            <br>
+            <p class="varTitle"><span class="text">Select sample:</span>
+            <select class="form-control" name="thelist1" id="thelist1" onchange="sampleCombo()">
+                <option value="0"> Match Stick</option></select>
+            </p>
+            <br>
+            <p class="varTitle"><span class="text">Select objective lens:</span>
+             <select class="form-control" name="thelist2" id="thelist2" onchange="sampleObjectives()">
+                <option value="0">10X (Low power)</option><option value="1">40X (High power)</option></select>
+            </p>
+            <br>
+
+            <p class="varTitle">Coarse adjustment:</p><!--Loading instructions-->
+            <div style="position:relative;">
+                <div id="backwdZoom" onclick="back_btnZoom_Fn()">
+                	<img style="position:absolute;left:35px; top:15px; cursor:pointer;" src="./back_btn.png">
+                </div>
+            </div>
+            <div style="position:relative;">
+                <div id="forwdZoom" onclick="forwd_btnZoom_Fn()">
+                    <img style="position:absolute;left:130px;top:15px;  cursor:pointer;" src="./forwd_btn.png">
+                </div>
+            </div>
+            <br><br><br><br>
+
+            <p class="varTitle">adjustment:</p>
+            <div style="position:relative;">
+                <div id="backwdFine" onclick="back_btnFine_Fn()">
+                <img style="position:absolute;left:35px; top:15px; cursor:pointer;" src="./back_btn.png">
+                </div>
+            </div>
+            <div style="position:relative;">
+                <div id="forwdFine" onclick="forwd_btnFine_Fn()">
+                	<img style="position:absolute;left:130px;top:15px; cursor:pointer;" src="./forwd_btn.png">
+                </div>
+            </div>
+            <br><br><br><br><br><br>
+
+            <!--Loading reset button-->
+            <p align="center"><input type="button" class="form-control" name="reset" id="reset" onclick="window.location.reload()" value="Reset"></p>
+            <br>
+         </div>
+    </li>
+</ul>
+
+
+
+	</form></div>
+</div>
+
+
+<div id="page-content-wrapper" class="canvasHolder" style="background-position-y: 40%;">
+	<script type="text/javascript" language="javascript">
+	var simPath="../BIO/CLB/Prepare_temporary_mounts_of_onionpeel_and_human_cheekcells/";</script>
+<script type="text/javascript" src="./simcontrols.js.download"></script>
+<script type="text/javascript" src="./responsive.js.download"></script>
+
+<div id="microview">
+<!--Loading Background-->
+<canvas id="bgCanvas" style="background-position-y:40%;background-size:cover;background-image:url(../BIO/CLB/Prepare_temporary_mounts_of_onionpeel_and_human_cheekcells/images/BG.png);"></canvas>
+<span id="microTxt10" style="top: 53%;">10</span>
+<span id="microTxt40" style="transform-origin: 50% 50%; transform: rotate(45deg); top: 51%;">40</span>
+<span id="microTxt100" style="top: 51%;">100</span>
+
+<div id="eyepieceLens"></div>
+<div id="coarseAdjustment"></div>
+<div id="fineAdjustment"></div>
+<div id="clip"></div>
+<div id="nosePiece"></div>
+<div id="objectivelens"></div>
+<div id="objectivelens1"></div>
+<div id="objectivelens2"></div>
+<div id="mirror"></div>
+<div id="stagehtadjstmnt"></div>
+<div id="stage"></div>
+
+<div id="frwdBckwrd" style="left: 51%; top: 30%; position: absolute; width: 8%; height: 12%;">
+	<img id="forwardZoomImageMicro" onclick="forwardZoomImageMicro_FN()" src="./forwd_btnMicro.png">
+	<img id="backwardZoomImageMicro" onclick="backwardZoomImageMicro_FN()" src="./back_btnMicro.png">
+</div>
+
+<img id="lensPlusTube" src="./lensPlusTube.png" style="position: absolute; top: 6%; width: 15%;">
+
+
+<img id="microbody" src="./micro.png" style="position: absolute; top: 30%; left: 28%; width: 52%;">
+</div>
+<div id="common" style="display: none;">
+<img  id="zoomOnion" src="./cell.jpg">
+<div id="viewBino">
+	<div id="blurHolder">
+		<canvas id="blurCanvas" height="396" width="541" style="width: 541px; height: 396px;"></canvas>
+	</div>
+</div>
+<img id="mask" src="./mask.png">
+</div>
+</div>
+
+<script type="text/javascript">
+ var expTitle= "Match Stick Experiment";
+ document.getElementById("expName").style.size="11px";
+ document.getElementById("expName").innerHTML=expTitle;
+</script>
+
+
+</div>
+
+   <footer id="tempFooter" style="margin-top: -5.0em">
+	<div style="margin-left: 0.7em;margin-top: em;position: absolute; background-color: #295F2D; width: 60.3%;">
+		<p class="labName" style="color :#FFE67C;"><b>Sanjana <br><b>Department Of Information Technology</p>
+	</div>
+</footer>
+</div>
+
+
+
+
+<!--<script type="text/javascript" src="js/resp.js"></script>-->
+<script>
+
+
+function simFullScreenOlab(){
+		var $ = function(selector,context){return(context||document).querySelector(selector)};
+        var iframe = $("iframe"),
+            domPrefixes = 'Webkit Moz O ms Khtml'.split(' ');
+
+            var fullscreen = function(elem){
+            var prefix;
+
+            // Mozilla and webkit intialise fullscreen slightly differently
+            for ( var i = -1, len = domPrefixes.length; ++i < len; )
+			{
+              prefix = domPrefixes[i].toLowerCase();
+              if ( elem[prefix + 'EnterFullScreen'] ) {
+                // Webkit uses EnterFullScreen for video
+                return prefix + 'EnterFullScreen';
+                break;
+              } else if( elem[prefix + 'RequestFullScreen'] ) {
+                // Mozilla uses RequestFullScreen for all elements and webkit uses it for non video elements
+                return prefix + 'RequestFullScreen';
+                break;
+              }
+            }
+            return false;
+        };
+        // Webkit uses "requestFullScreen" for non video elements
+        var fullscreenother = fullscreen(document.createElement("iframe"));
+        if(!fullscreen) {
+            alert("Fullscreen won't work, please make sure you're using a browser that supports it and you have enabled the feature");
+            return;
+        }
+		iframe[fullscreenother]();
+		(this,this.document);
+	    }
+
+</script></body></html>

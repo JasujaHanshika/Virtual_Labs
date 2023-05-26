@@ -1,0 +1,420 @@
+//variable declaration
+
+var dropdown0Array;
+var dropdown1Array;
+var dropdown2Array;
+var msgArray;
+var selectSample=0;
+var selectViewPart=0
+var zoomWidth=600//560//460;
+var zoomheight=480;//440//350
+var Int
+var bgLeft;
+var bgtop;
+
+//var lensPlusTubeTop=50;
+//var nosePieceTop=225;
+// var objectivelensTop=240;
+// var objectivelens1Top=245;
+// var objectivelens2Top=255;
+//var eyepieceLensTop=50;
+
+var lensPlusTubeTop=6;
+var eyepieceLensTop=6;
+var nosePieceTop=45;
+var objectivelensTop=50;
+var objectivelens1Top=49;
+var objectivelens2Top=53;
+var opacitynum=.5
+var selectObjectives=0;
+var flag=3//zoom flag
+var blurAmt=3;
+var degree;
+var id0;//"40"
+var id1;//"10"
+var id2;//"100"
+var id0Top=252;////"40"
+var id1Top=264;//"10"
+var id2Top=255;//"100"
+var id0Top=51;////"40"
+var id1Top=53;//"10"
+var id2Top=51;//"100"
+var lensFlag=0;
+var cons=Number(1);
+
+
+//ready function
+$(document).ready(function() {
+
+	$('#expName').html(gt.gettext("Match Stick Experiment."));
+	dropdown0Array=[gt.gettext("Microscope view"),gt.gettext("Binocular view")];
+	dropdown1Array=[gt.gettext("Onion cell"),gt.gettext("Cheek cell")];
+	dropdown2Array=[gt.gettext("10X (Low power)"),gt.gettext("40X (High power)")]
+	msgArray=[gt.gettext("Eyepiece Lens"),gt.gettext("Coarse Adjustment"),gt.gettext("Fine Adjustment"),gt.gettext("Clip"),gt.gettext("Nose piece"),gt.gettext("Objective lens"),gt.gettext("Mirror or light source"),gt.gettext("Stage"),gt.gettext("Stage height adjustment")];
+	document.getElementsByClassName("text")[0].innerHTML = gt.gettext("Select view:");
+	document.getElementsByClassName("text")[1].innerHTML = gt.gettext("Select sample:")
+	document.getElementsByClassName("text")[2].innerHTML = gt.gettext("Select objective lens:")
+	document.getElementsByClassName("varTitle")[3].innerHTML = gt.gettext("Coarse adjustment:");
+	document.getElementsByClassName("varTitle")[4].innerHTML = gt.gettext("Fine adjustment:");
+	document.getElementById("reset").value = gt.gettext("Reset");
+	document.getElementsByClassName("text")[3].innerHTML = gt.gettext("Instructions");
+	document.getElementsByClassName("varTitle")[6].innerHTML = gt.gettext("Place the mouse over each part of the microscope to show its names.");
+	/*$(".labName").html(gt.gettext("Developed by CDAC Mumbai & Amrita University <br> Under research grant from department of IT"));
+	$('#olabmenuBar li:first-child a').html(gt.gettext("SAVE"));
+	$('#olabmenuBar li:nth-child(2) a').html(gt.gettext("FULLSCREEN"));
+	$('#olabmenuBar li:last-child a').html(gt.gettext("EXIT"));*/
+
+
+	 //Preload images
+	function preload(arrayOfImages) {
+		$(arrayOfImages).each(function(){
+			$('<img/>')[0].src = this;
+
+		});
+	}
+	// Usage:
+	preload([
+		''+simPath+'images/zoomcheek.png',
+		''+simPath+'images/zoomOnion.jpg'
+
+	]);
+	for(var i=0; i<dropdown0Array.length; i++){
+		document.lister.thelist0.options[i] = new Option(dropdown0Array[i], i);
+	}
+	for(var i=0; i<dropdown1Array.length; i++){
+		document.lister.thelist1.options[i] = new Option(dropdown1Array[i], i);
+	}
+	for(var i=0; i<dropdown2Array.length; i++){
+		document.lister.thelist2.options[i] = new Option(dropdown2Array[i], i);
+	}
+	id0=document.getElementById("microTxt40");
+	id1=document.getElementById("microTxt10");
+	id2=document.getElementById("microTxt100");
+	degree=45;
+	a=40;b=10;c=100;
+	txtChange(a,b,c)
+	rotateTxt_yellow();
+	bgLeft=document.getElementById("bgCanvas").offsetLeft;
+	bgTop=document.getElementById("bgCanvas").offsetTop;
+	id0.style.top=bgTop+id0Top+"%";
+	id1.style.top=bgTop+id1Top+"%";
+	id2.style.top=bgTop+id2Top+"%";
+	document.getElementById("common").style.display="none";
+	$(window).load(function(e){
+		blurImagevary(blurAmt);
+	});
+	$("#eyepieceLens").qtip({
+   		content: msgArray[0],
+   		position: {corner:{target: 'topMiddle',tooltip: 'bottomMiddle'}
+   		},style: { width: 130,padding: 2,background: '#FFFF99',color: 'black',textAlign: 'center',
+		fontSize: 15+"px",border: {width: 1,radius: 5,color: '#FFFFCC'},tip: 'bottomMiddle'}
+	});
+	$("#coarseAdjustment").qtip({
+   		content: msgArray[1],
+   		position: {corner:{target: 'rightMiddle',tooltip: 'bottomMiddle'}
+   		},style: { width: 130,padding: 2,background: '#FFFF99',color: 'black',textAlign: 'center',
+		fontSize: 15+"px",border: {width: 1,radius: 5,color: '#FFFFCC'},tip: 'bottomMiddle'}
+	});
+	$("#fineAdjustment").qtip({
+   		content:msgArray[2] ,
+   		position: {corner:{target: 'rightMiddle',tooltip: 'bottomMiddle'}
+   		},style: { width: 130,padding: 2,background: '#FFFF99',color: 'black',textAlign: 'center',
+		fontSize: 15+"px",border: {width: 1,radius: 5,color: '#FFFFCC'},tip: 'bottomMiddle'}
+	});
+	$("#clip").qtip({
+   		content: msgArray[3],
+   		position: {corner:{target: 'rightMiddle',tooltip: 'bottomMiddle'}
+   		},style: { width: 75,padding: 2,background: '#FFFF99',color: 'black',textAlign: 'center',
+		fontSize: 15+"px",border: {width: 1,radius: 5,color: '#FFFFCC'},tip: 'bottomMiddle'}
+	});
+	$("#nosePiece").qtip({
+   		content: msgArray[4],
+   		position: {corner:{target: 'rightMiddle',tooltip: 'bottomMiddle'}
+   		},style: { width: 130,padding: 2,background: '#FFFF99',color: 'black',textAlign: 'center',
+		fontSize: 15+"px",border: {width: 1,radius: 5,color: '#FFFFCC'},tip: 'bottomMiddle'}
+	});
+	$("#objectivelens").qtip({
+   		content: msgArray[5],
+   		position: {corner:{target: 'rightMiddle',tooltip: 'bottomMiddle'}
+   		},style: { width: 130,padding: 2,background: '#FFFF99',color: 'black',textAlign: 'center',
+		fontSize: 15+"px",border: {width: 1,radius: 5,color: '#FFFFCC'},tip: 'bottomMiddle'}
+	});
+	$("#objectivelens1").qtip({
+   		content: msgArray[5],
+   		position: {corner:{target: 'rightMiddle',tooltip: 'bottomMiddle'}
+   		},style: { width: 130,padding: 2,background: '#FFFF99',color: 'black',textAlign: 'center',
+		fontSize: 15+"px",border: {width: 1,radius: 5,color: '#FFFFCC'},tip: 'bottomMiddle'}
+	});
+	$("#objectivelens2").qtip({
+   		content: msgArray[5],
+   		position: {corner:{target: 'rightMiddle',tooltip: 'bottomMiddle'}
+   		},style: { width: 130,padding: 2,background: '#FFFF99',color: 'black',textAlign: 'center',
+		fontSize: 15+"px",border: {width: 1,radius: 5,color: '#FFFFCC'},tip: 'bottomMiddle'}
+	});
+	$("#mirror").qtip({
+   		content: msgArray[6],
+   		position: {corner:{target: 'rightMiddle',tooltip: 'bottomMiddle'}
+   		},style: { width: 150,padding: 2,background: '#FFFF99',color: 'black',textAlign: 'center',
+		fontSize: 15+"px",border: {width: 1,radius: 5,color: '#FFFFCC'},tip: 'bottomMiddle'}
+	});
+	$("#stage").qtip({
+   		content: msgArray[7],
+   		position: {corner:{target: 'rightMiddle',tooltip: 'bottomMiddle'}
+   		},style: { width: 100,padding: 2,background: '#FFFF99',color: 'black',textAlign: 'center',
+		fontSize: 15+"px",border: {width: 1,radius: 5,color: '#FFFFCC'},tip: 'bottomMiddle'}
+	});
+	$("#stagehtadjstmnt").qtip({
+   		content: msgArray[8],
+   		position: {corner:{target: 'rightMiddle',tooltip: 'bottomMiddle'}
+   		},style: { width: 180,padding: 2,background: '#FFFF99',color: 'black',textAlign: 'center',
+		fontSize: 15+"px",border: {width: 1,radius: 5,color: '#FFFFCC'},tip: 'bottomMiddle'}
+	});
+
+
+});
+
+
+	//function for tooltip visibility
+	function toolTipVisible(){
+		document.getElementById("eyepieceLens").style.visibility="visible"
+		document.getElementById("coarseAdjustment").style.visibility="visible";
+		document.getElementById("fineAdjustment").style.visibility="visible";
+		document.getElementById("clip").style.visibility="visible";
+		document.getElementById("nosePiece").style.visibility="visible"
+		document.getElementById("objectivelens").style.visibility="visible";
+		document.getElementById("objectivelens1").style.visibility="visible";
+		document.getElementById("objectivelens2").style.visibility="visible";
+		document.getElementById("mirror").style.visibility="visible";
+		document.getElementById("stage").style.visibility="visible";
+		document.getElementById("stagehtadjstmnt").style.visibility="visible";
+		}
+	//function for tooltip hide
+	function toolTiphide(){
+		document.getElementById("eyepieceLens").style.visibility="hidden"
+		document.getElementById("coarseAdjustment").style.visibility="hidden";
+		document.getElementById("fineAdjustment").style.visibility="hidden";
+		document.getElementById("clip").style.visibility="hidden";
+		document.getElementById("nosePiece").style.visibility="hidden"
+		document.getElementById("objectivelens").style.visibility="hidden";
+		document.getElementById("objectivelens1").style.visibility="hidden";
+		document.getElementById("objectivelens2").style.visibility="hidden";
+		document.getElementById("mirror").style.visibility="hidden";
+		document.getElementById("stage").style.visibility="hidden";
+		document.getElementById("stagehtadjstmnt").style.visibility="hidden";
+		}
+	//function for view dropdown
+	function selectView(){
+		selectViewPart=document.getElementById("thelist0").selectedIndex
+		if(selectViewPart==0){
+			document.getElementById("common").style.display="none";
+			document.getElementById("microview").style.display="block";
+			toolTipVisible();
+		}else if(selectViewPart==1){
+			document.getElementById("common").style.display="block";
+			document.getElementById("microview").style.display="none";
+			blurImagevary(blurAmt);
+			toolTiphide();
+		}
+		imageScale();
+	}
+
+	//function for sample dropdown
+	function sampleCombo(){
+		selectSample=document.getElementById("thelist1").selectedIndex
+		if(selectSample==0){
+			document.getElementById("zoomOnion").src=simPath+'images/zoomOnion.jpg';
+		}else if(selectSample==1){
+			document.getElementById("zoomOnion").src=simPath+'images/zoomcheek.png';
+		}
+		imageScale();
+		$('#zoomOnion').load(function(e){
+	    	 blurImagevary(blurAmt);
+		});
+
+	}
+
+	//function for objective combo
+	function sampleObjectives(){
+		selectObjectives=document.getElementById("thelist2").selectedIndex
+		clearInterval(Int);
+		Int=setInterval(zoom,100);
+	}
+
+	//function for rotate the text "40"
+	function rotateTxt_yellow(){
+			id0.style.webkitTransformOrigin='50% 50%';
+			id0.style.webkitTransform = 'rotate(' + degree + 'deg)';
+			id0.style.MozTransformOrigin='50% 50%';
+			id0.style.MozTransform ='rotate('+ degree +'deg)';
+	}
+
+	function txtChange(a,b,c,colora,colorb,colorc){
+		id0.innerHTML=a;
+		id1.innerHTML=b;
+		id2.innerHTML=c;
+		id0.style.color=colora
+		id1.style.color=colorb
+		id2.style.color=colorc
+	}
+	//function for zoom
+	function zoom(){
+		id0=document.getElementById("microTxt40");
+		id1=document.getElementById("microTxt10");
+		id2=document.getElementById("microTxt100");
+		a=40;b=10;c=100;
+		colora="#FF3";colorb="#0F3";colorc="#F00"
+		if(selectObjectives==0 ){
+			txtChange(a,b,c,colora,colorb,colorc)
+			if(cons>=1){//zoomWidth>=600 && zoomheight>=480
+				cons-=.03;
+				imageScale();
+
+			}
+		}else{
+			txtChange(c,a,b,colorc,colora,colorb)
+			if(cons<=1.5){//zoomWidth<=700 && zoomheight<=570
+				cons+=.03;
+			 	imageScale();
+			}
+
+		}
+	}
+
+	//function for coarse adjustment forwd button
+	function forwd_btnZoom_Fn(){
+		forwardZoom_FN("fwd")
+	}
+
+	//function for coarse adjustment forwd button
+	function forwardZoom_FN(evt){
+		clearInterval(Int);
+		if(flag<10){
+			cons+=.03
+			flag++;
+			blurIn(evt);
+			imageScale();
+
+		}
+		if(lensFlag<=7){
+			 lensPlusTubeTop+=0.5;
+			  eyepieceLensTop+=0.5;
+			  nosePieceTop+=0.5;
+			  objectivelensTop+=0.5;
+			  objectivelens1Top+=0.5;
+			  objectivelens2Top+=0.5;
+			  id0Top+=0.5;
+			  id1Top+=0.5;
+			  id2Top+=0.5;
+				microTopMove();
+				lensFlag++
+		}
+	}
+
+	//*--Function to blur the image while zoom
+	function blurIn(evt){
+			if(evt=="fwd"){
+				blurAmt=blurAmt-1;
+			}else{//Backward button
+				blurAmt=blurAmt+1;
+			}
+			blurAmount=blurAmt;
+
+		if(blurAmount<0){
+			blurAmount=(-blurAmount);
+		}
+		blurImagevary(blurAmount);
+	}
+	//function to move the microscope top to up and down
+	function microTopMove(){
+
+			  document.getElementById("lensPlusTube").style.top=lensPlusTubeTop+"%";
+			  document.getElementById("eyepieceLens").style.top=eyepieceLensTop+"%";
+			  document.getElementById("nosePiece").style.top=nosePieceTop+"%";
+			  document.getElementById("objectivelens").style.top=objectivelensTop+"%";
+			  document.getElementById("objectivelens1").style.top=objectivelens1Top+"%";
+			  document.getElementById("objectivelens2").style.top=objectivelens2Top+"%";
+			  id0.style.top=bgTop+id0Top+"%";
+			  id1.style.top=bgTop+id1Top+"%";
+			  id2.style.top=bgTop+id2Top+"%";
+
+	}
+	//function for coarse adjustment backwd button
+	function back_btnZoom_Fn(){
+		backwardZoom_FN("bwd")
+	}
+	//function for coarse adjustment backwd button
+	function backwardZoom_FN(evt){
+		clearInterval(Int)
+		if(flag>0){
+			cons-=.03
+			flag--;
+			blurIn(evt);
+			imageScale();
+
+		}
+			if(lensFlag>0){
+				  lensPlusTubeTop-=0.5;
+				  eyepieceLensTop-=0.5;
+				  nosePieceTop-=0.5;
+				  objectivelensTop-=0.5;
+				  objectivelens1Top-=0.5;
+				  objectivelens2Top-=0.5;
+				  id0Top-=0.5;
+				  id1Top-=0.5;
+				  id2Top-=0.5;
+				  microTopMove();
+				  lensFlag--;
+			 }
+	}
+	//function for fine adjustment fwd button
+	function forwd_btnFine_Fn(){
+		forwardFine_FN("fwd");
+	}
+	//function for fine adjustment fwd button
+	function forwardFine_FN(evt){
+			if(flag<10){
+				cons+=.006;
+				blurIn(evt);
+				flag++;
+				imageScale();
+
+			}
+	}
+	//function for fine adjustment bakwd button
+	function back_btnFine_Fn(){
+		backwardFine_FN("bwd");
+	}
+	//function for fine adjustment bakwd button
+	function backwardFine_FN(evt){
+			if(flag>0){
+					cons-=.006;
+					blurIn(evt);
+					flag--;
+					imageScale();
+
+			}
+	}
+	//function for coarse adjustment forwd button in the microscope image
+	function forwardZoomImageMicro_FN(){
+		forwardZoom_FN()
+	}
+	//function for coarse adjustment backwd button in the microscope image
+	function backwardZoomImageMicro_FN(){
+		backwardZoom_FN()
+	}
+	//function for fine adjustment fwd button in the microscope image
+	function forwardFineImageMicro_FN(){
+		forwardFine_FN("fwd")
+	}
+	//function for fine adjustment bakwd button in the microscope image
+	function backwardFineImageMicro_FN(){
+		backwardFine_FN("bwd")
+	}
+	//*--Function to change blur
+	function blurImagevary(blurAmount){
+		stackBlurImage( 'zoomOnion', 'blurCanvas', blurAmount, false );
+	}
+	//*--Function to scale the image
+	function imageScale(){
+		$('#blurHolder').css("transform","scale("+cons+")").css("-moz-transform","scale("+cons+")").css("-webkit-transform","scale("+cons+")");
+	}
